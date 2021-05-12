@@ -7,11 +7,13 @@ CREATE TABLE if not exists clientes (
     contato VARCHAR(20) NOT NULL,
     data_nasc DATE NULL,
     sexo CHAR(1) NULL,
-    bairo VARCHAR(50) NULL,
+    bairro VARCHAR(50) NULL,
     primary key(codigo)
 );
 
-insert into clientes(nome, cpf, contato, data_nasc, sexo, bairo) 
+use teste;
+
+insert into clientes(nome, cpf, contato, data_nasc, sexo, bairro) 
 values 
 ('Adriana Araújo', '01120389921',	'71982213455',	'1987/02/03',	'F', 'Barra'),
 ('Renato Nogueira', '98220379931',	'11933321999',	'1977/07/09', 'M', 'Morumbi'),
@@ -24,7 +26,43 @@ values
 ('Fabiana Moreira',	'31160319971', '11933216758',	'1985/04/13',	'F', 'Vila Madalena'),
 ('Maria Conceição',	'82410399921', '21954419257',	'1999/07/10',	'F', 'Centro');
 
+#update todos os clientes que tem barra para nova barra mas cuidade !!!
+update clientes set bairro = 'nova barra' where bairro = 'barra';
+
+#update clientes onde o id e igual a 10
+update clientes set bairro = 'nova barra' where codigo = 10;
+
+#deleta todos os registros de uma base mas cuidado
+delete from clientes;
+
+#deleta todos os cliente onde são de nova barra
+delete from clientes where bairro = 'nova barra';
+
+delete from cliente where codigo = 7;
+
+#traz todos dados de uma tabela
 select * from clientes;
+
+#seleciona na planilha com criterio de maior igual em data
+select * from clientes where data_nasc >= '1990-01-01';
+
+# seleciona dadfos com o criterio like onde procura o valor dentro do campo
+select nome, contato from clientes where nome like '%Viviane%';
+
+#consulta com between para pegar valores de data ate data
+select nome, contato, data_nasc from clientes where data_nasc between '1990-01-01' and '1995-12-31 23:59';
+
+# selecionar com criterio 'F'
+select nome, contato, data_nasc from clientes where sexo = 'F';
+
+#seleciona dados com and duas condições verdadeiras
+select nome, sexo, bairro from clientes where sexo='F' and bairro='barra';
+
+#seleciona dados com or uma condição verdadeira
+select nome, data_nasc, sexo from clientes where  data_nasc < '1980-01-01' or sexo = 'M';
+
+#seleciona clientes que não morra na barra
+select nome, sexo, bairro from clientes where not(bairro='barra');
 
 # cria colunas em uma tabela
 alter table clientes add cod_cidade int null;
